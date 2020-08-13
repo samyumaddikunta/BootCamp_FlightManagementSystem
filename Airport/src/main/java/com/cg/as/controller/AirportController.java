@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory;
 
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -46,7 +47,7 @@ public class AirportController {
 					LOGGER.info("Add airport method is accessed"); 
 					return new ResponseEntity<>("Airport details added",HttpStatus.OK);
 				} 
-				catch (Exception ex) {
+				catch (DataIntegrityViolationException ex) {
 					return new ResponseEntity<>(ex.getMessage() + " Airport Already Exists", HttpStatus.BAD_REQUEST);
 				}
 			
@@ -54,7 +55,7 @@ public class AirportController {
 				
 		//update Airport
 		@PutMapping("/updateAirport/{id}")
-		public ResponseEntity<Object> updateAirport(@PathVariable("id") String airportCode, @RequestBody Airport airport)
+		public ResponseEntity<Object> updateAirport(@PathVariable("id") String airportCode, @RequestBody Airport airport)throws AirportNotFoundException
 		{
 			if (airportDao.existsById(airportCode))
 			{
@@ -98,7 +99,7 @@ public class AirportController {
 		
 		//Delete Airport By Id
 		@DeleteMapping("/deleteAirport/{id}")
-		public ResponseEntity<Object> deleteAirport(@PathVariable("id") String airportCode)
+		public ResponseEntity<Object> deleteAirport(@PathVariable("id") String airportCode)throws AirportNotFoundException
 		{
 			if (airportDao.existsById(airportCode))
 			{

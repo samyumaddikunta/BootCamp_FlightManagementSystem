@@ -55,7 +55,7 @@ public class FlightScheduleController {
 		
 		//update Flight schedule
 		@PutMapping("/updateFlightSchedule/{id}")
-		public ResponseEntity<Object> updateFlightSchedule(@PathVariable("id") String scheduleId, @RequestBody FlightSchedule flightSchedule)
+		public ResponseEntity<Object> updateFlightSchedule(@PathVariable("id") String scheduleId, @RequestBody FlightSchedule flightSchedule)throws FlightScheduleNotFoundException
 		{
 			if (flightScheduleDao.existsById(scheduleId))
 			{
@@ -98,7 +98,7 @@ public class FlightScheduleController {
 		
 		//Delete Flight Schedule By Id
 		@DeleteMapping("/deleteFlightSchedule/{id}")
-		public ResponseEntity<Object> deleteFlightSchedule(@PathVariable("id") String scheduleId)
+		public ResponseEntity<Object> deleteFlightSchedule(@PathVariable("id") String scheduleId)throws FlightScheduleNotFoundException
 		{
 			if (flightScheduleDao.existsById(scheduleId))
 			{

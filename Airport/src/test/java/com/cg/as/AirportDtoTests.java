@@ -1,4 +1,5 @@
 package com.cg.as;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import org.junit.Before;
 import org.junit.Test;
@@ -13,6 +14,14 @@ public class AirportDtoTests {
 	public void initInput()
 	{
 		
+	}
+	@Test()
+	public void testFlight_Positive()
+	{
+		Airport airport=new Airport("HYD", "Rajiv", "hyderabad");
+		assertEquals("HYD",airport.getAirportCode());
+		assertEquals("Rajiv",airport.getAirportName());
+		assertEquals("hyderabad",airport.getAirportLocation());
 	}
 	@Test()
 	public void testFlight()
