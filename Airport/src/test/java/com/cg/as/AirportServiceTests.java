@@ -29,8 +29,6 @@ import com.cg.as.service.AirportService;
 @SuppressWarnings("unused")
 @RunWith(SpringJUnit4ClassRunner.class)
 public class AirportServiceTests {	
-	@Rule
-	public VerificationCollector verificationCollector = MockitoJUnit.collector();
 	@Mock
     private AirportDao airportDao;
 	@InjectMocks

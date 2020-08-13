@@ -7,6 +7,7 @@ import javax.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -43,11 +44,11 @@ public class FlightScheduleController {
 		{
 	
 			try {
-				LOGGER.warn("Request {}", flightSchedule);
 				flightScheduleService.addFlightSchedule(flightSchedule);
+				LOGGER.info("Add Flight Schedule method is accessed");
 				return new ResponseEntity<>("Flight Schedule details added",HttpStatus.OK);
 			} 
-			catch (Exception ex) {
+			catch (DataIntegrityViolationException ex) {
 				return new ResponseEntity<>(ex.getMessage() + "Flight Schedule details already added", HttpStatus.BAD_REQUEST);
 			}
 		}
@@ -59,6 +60,7 @@ public class FlightScheduleController {
 			if (flightScheduleDao.existsById(scheduleId))
 			{
 				flightScheduleService.updateFlightSchedule(flightSchedule);
+				LOGGER.info("update Flight Schedule method is accessed");
 				return new ResponseEntity<>("Flight Schedule is updated successsfully", HttpStatus.OK);
 			}
 			else
@@ -75,6 +77,7 @@ public class FlightScheduleController {
 		    Optional<FlightSchedule> flightSchedule= flightScheduleDao.findById(scheduleId);
 		    if (flightSchedule.isPresent())
 		    {
+		      LOGGER.info("View Flight Schedule method is accessed");	
 		      return new ResponseEntity<>(flightSchedule.get(), HttpStatus.OK);
 		    }
 		    else
@@ -100,6 +103,7 @@ public class FlightScheduleController {
 			if (flightScheduleDao.existsById(scheduleId))
 			{
 				flightScheduleService.deleteFlightSchedule(scheduleId);
+				LOGGER.info("Delete Flight Schedule method is accessed");
 				return new ResponseEntity<>("Flight Schedule is deleted successsfully", HttpStatus.OK);
 			}
 			else

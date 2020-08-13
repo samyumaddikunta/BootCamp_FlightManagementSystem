@@ -42,8 +42,8 @@ public class AirportController {
 		public ResponseEntity<Object> addAirport(@Valid @RequestBody Airport airport)
 		{
 				try {
-					LOGGER.warn("Request {}", airport);
 					airportService.addAirport(airport);
+					LOGGER.info("Add airport method is accessed"); 
 					return new ResponseEntity<>("Airport details added",HttpStatus.OK);
 				} 
 				catch (Exception ex) {
@@ -59,6 +59,7 @@ public class AirportController {
 			if (airportDao.existsById(airportCode))
 			{
 				airportService.updateAirport(airport);
+				LOGGER.info("update airport method is accessed");
 				return new ResponseEntity<>("Airport is updated successsfully", HttpStatus.OK);
 			}
 			else
@@ -75,6 +76,7 @@ public class AirportController {
 		    Optional<Airport> airport = airportDao.findById(airportCode);
 		    if (airport.isPresent())
 		    {
+		      LOGGER.info("View Airport method is accessed");	
 		      return new ResponseEntity<>(airport.get(), HttpStatus.OK);
 		    }
 		    else
@@ -89,6 +91,7 @@ public class AirportController {
 		public ResponseEntity<Object> viewAirports()
 		{
 			List<Airport> airportList = airportService.viewAirports();
+			LOGGER.info("View Airports method is accessed");
 			return new ResponseEntity<>(airportList, HttpStatus.OK);
 		}
 
@@ -100,6 +103,7 @@ public class AirportController {
 			if (airportDao.existsById(airportCode))
 			{
 				airportService.deleteAirport(airportCode);
+				LOGGER.info("delete Airport method is accessed");
 				return new ResponseEntity<>("Airport is deleted successsfully", HttpStatus.OK);
 			}
 			else
